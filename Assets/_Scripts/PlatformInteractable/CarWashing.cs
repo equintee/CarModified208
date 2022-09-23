@@ -5,29 +5,20 @@ using DG.Tweening;
 using System.Threading.Tasks;
 using System.Linq;
 
-public class CarWashingTrigger : MonoBehaviour
+public class CarWashing : MonoBehaviour, IPlatformInteractable
 {
-    private void OnTriggerEnter(Collider other)
+    public void Interact(GameObject player)
     {
-        if (!other.CompareTag("Player"))
-            return;
+        PlayerController playerController = player.GetComponent<PlayerController>();
+        Transform playerTransform = player.transform;
 
-        GetComponent<BoxCollider>().enabled = false;
+        playerController.setIsClean(true);
 
-        PlayerController playerController = other.GetComponent<PlayerController>();
-        Transform playerTransform = other.transform;
-
-        playerController.enabled = false;
-        playerTransform.DOMoveZ(transform.position.z - 2f, 0);
-        this.enabled = true;
-
-        playerTransform.transform.DOMoveZ(transform.position.z + 1f, 1f).OnComplete( () => {
-            this.enabled = false;
+        playerTransform.transform.DOMoveZ(transform.position.z + 1f, playerController.movementSpeedZ).SetSpeedBased().OnComplete( () => {
             playerController.enabled = true;
         });
 
         CleanCar(1f, playerTransform.GetChild(0));
-
     }
 
     private async void CleanCar(float cleanTime, Transform carModel)
@@ -38,11 +29,9 @@ public class CarWashingTrigger : MonoBehaviour
         Texture2D dirtMaskTexture = new Texture2D(iterationCount, iterationCount);
         
         for (int height = 0; height < iterationCount; height++)
-        {
             for (int width = 0; width < iterationCount; width++)
                 dirtMaskTexture.SetPixel(width, height, Color.green);
-        }
-
+        
         for (int iteration = 0; iteration < iterationCount; iteration++)
         {
             foreach(Material carMaterial in carModel.GetComponent<MeshRenderer>().materials)
@@ -53,10 +42,8 @@ public class CarWashingTrigger : MonoBehaviour
                 dirtMaskTexture.Apply();
                 carMaterial.SetTexture("_Mask", dirtMaskTexture);
             }
-
             await Task.Delay(System.TimeSpan.FromSeconds(delayBetweenIteration));
-
         }
-
     }
+
 }

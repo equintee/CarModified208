@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     public float movementSpeedZ;
 
     private int platformLayerMask;
+    private bool isCarClean = false;
     void Start()
     {
         platformLayerMask = LayerMask.GetMask("Platform");
@@ -26,4 +27,20 @@ public class PlayerController : MonoBehaviour
                 transform.Translate(movement);
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Interactable"))
+            other.transform.GetComponent<IPlatformInteractable>().Interact(gameObject);
+    }
+
+    public void setIsClean(bool value)
+    {
+        isCarClean = value;
+    }
+    public bool getIsClean()
+    {
+        return isCarClean;
+    }
+    
 }
