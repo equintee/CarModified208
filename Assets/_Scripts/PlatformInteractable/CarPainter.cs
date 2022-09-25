@@ -6,15 +6,17 @@ using DG.Tweening;
 public class CarPainter : MonoBehaviour, IPlatformInteractable
 {
     public Material paint;
+
+
     public void Interact(GameObject player)
     {
         PlayerController playerController = player.GetComponent<PlayerController>();
         Transform playerTransform = player.transform;
 
-        playerTransform.DOMove(transform.position + new Vector3(0, 0, 5), playerController.movementSpeedZ).SetSpeedBased().OnComplete(() =>
-         {
-             playerController.enabled = true;
-         });
+        playerTransform.DOMoveZ(transform.position.z + 3, playerController.movementSpeedZ).SetSpeedBased().OnComplete(() =>
+        {
+             playerController.playerEvents += playerController.playerPlatformMovement;
+        });
 
         Texture2D mask = new Texture2D(1, 1);
         if (playerController.getIsClean())
@@ -27,6 +29,9 @@ public class CarPainter : MonoBehaviour, IPlatformInteractable
         carMaterials[^1] = paint;
         player.transform.GetChild(0).GetComponent<MeshRenderer>().materials = carMaterials;
 
-
+    }
+    public void BlendCamera()
+    {
+        return;
     }
 }

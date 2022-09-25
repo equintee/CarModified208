@@ -5,5 +5,6 @@ using UnityEngine;
 public interface IPlatformInteractable
 {
     public void Interact(GameObject player);
+    public void BlendCamera();
     
 }

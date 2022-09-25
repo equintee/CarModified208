@@ -1,25 +1,46 @@
+using Cinemachine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour
 {
-    public float movementSpeedX;
-    public float movementSpeedZ;
+    public Car car;
 
+    [HideInInspector] public float movementSpeedZ;
+    [HideInInspector] public CinemachineStateDrivenCamera cinemachine;
+    [HideInInspector] public LevelController levelController;
     private int platformLayerMask;
     private bool isCarClean = false;
+    private float movementSpeedX;
+
+    public event Action playerEvents;
+    private void Awake()
+    {
+        cinemachine = FindObjectOfType<CinemachineStateDrivenCamera>();
+        levelController = FindObjectOfType<LevelController>();
+        platformLayerMask = LayerMask.GetMask("Platform");
+    }
     void Start()
     {
-        platformLayerMask = LayerMask.GetMask("Platform");
+        movementSpeedZ = car.movementSpeedZ;
+        movementSpeedX = levelController.sensivity;
+        playerEvents += playerPlatformMovement;
     }
 
     // Update is called once per frame
     void Update()
     {
+        playerEvents?.Invoke();
+    }
+
+    public void playerPlatformMovement()
+    {
         transform.Translate(new Vector3(0, 0, movementSpeedZ * Time.deltaTime));
 
-        if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved)
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved)
         {
             Touch touch = Input.GetTouch(0);
             Vector3 movement = new Vector3(movementSpeedX * touch.deltaPosition.x, 0, 0);

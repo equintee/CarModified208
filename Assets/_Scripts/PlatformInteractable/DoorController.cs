@@ -7,11 +7,11 @@ public class DoorController : MonoBehaviour, IPlatformInteractable
 {
     private Vector3 interactablePosition;
     private IPlatformInteractable interactableScript;
-
     private void Awake()
     {
         Transform interactable = transform.GetChild(0);
         interactablePosition = interactable.position;
+        interactablePosition.y = 0.2f;
         interactableScript = interactable.GetComponent<IPlatformInteractable>();
     }
     public async void Interact(GameObject player)
@@ -20,12 +20,18 @@ public class DoorController : MonoBehaviour, IPlatformInteractable
         PlayerController playerController = player.GetComponent<PlayerController>();
         Transform playerTransform = player.transform;
 
-        playerController.enabled = false;
-        await playerTransform.DOMove(transform.position + new Vector3(0,0,1), playerController.movementSpeedZ).SetSpeedBased().AsyncWaitForCompletion();
+        playerController.playerEvents -= playerController.playerPlatformMovement;
+        playerController.levelController.repairBar.incrementValue(0.3f);
+
+        interactableScript.BlendCamera();
+
+        await playerTransform.DOMove(interactablePosition, playerController.movementSpeedZ).SetSpeedBased().AsyncWaitForCompletion();
 
         interactableScript.Interact(player);
     }
-    
-    
 
+    public void BlendCamera()
+    {
+        return;
+    }
 }

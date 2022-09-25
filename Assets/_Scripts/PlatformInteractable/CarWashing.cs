@@ -7,6 +7,7 @@ using System.Linq;
 
 public class CarWashing : MonoBehaviour, IPlatformInteractable
 {
+
     public void Interact(GameObject player)
     {
         PlayerController playerController = player.GetComponent<PlayerController>();
@@ -15,7 +16,7 @@ public class CarWashing : MonoBehaviour, IPlatformInteractable
         playerController.setIsClean(true);
 
         playerTransform.transform.DOMoveZ(transform.position.z + 1f, playerController.movementSpeedZ).SetSpeedBased().OnComplete( () => {
-            playerController.enabled = true;
+            playerController.playerEvents += playerController.playerPlatformMovement;
         });
 
         CleanCar(1f, playerTransform.GetChild(0));
@@ -44,6 +45,10 @@ public class CarWashing : MonoBehaviour, IPlatformInteractable
             }
             await Task.Delay(System.TimeSpan.FromSeconds(delayBetweenIteration));
         }
+    }
+    public void BlendCamera()
+    {
+        return;
     }
 
 }
