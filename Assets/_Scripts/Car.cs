@@ -17,7 +17,7 @@ public class Car : ScriptableObject
     public int lightMaterialObjectIndex;
     public int[] lightMaterialIndex;
 
-    public Transform[] exhaustPositions;
+    public int[] exhaustParentIndex;
 
 
 }

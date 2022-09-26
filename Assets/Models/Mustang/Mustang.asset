@@ -17,7 +17,6 @@ MonoBehaviour:
   bodyWorkMaterialIndex: 5
   spoilerObjectIndex: 0
   rimMaterialObjectsIndex: 0000000001000000
-  rimMaterialIndex: 
   lightMaterialObjectIndex: 3
   lightMaterialIndex: 020000000300000004000000
-  exhaustPositions: []
+  exhaustParentIndex: 0200000005000000

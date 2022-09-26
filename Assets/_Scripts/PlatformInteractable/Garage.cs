@@ -38,9 +38,20 @@ public class Garage : MonoBehaviour, IPlatformInteractable
         cinemachine.m_DefaultBlend.m_Time = Vector3.Distance(transform.position, playerTransform.position) / playerController.movementSpeedZ;
         cinemachine.m_AnimatedTarget.Play("Garage");
     }
-    public void FixExhaust()
+    public void FixExhaust(GameObject fireEffect)
     {
-        //Alev
+        Transform modelParent = player.transform.GetChild(0);
+        PlayerController playerController = FindObjectOfType<PlayerController>();
+
+        foreach (int exhaustParentIndex in playerController.car.exhaustParentIndex)
+        {
+            GameObject spawnedEffect = Instantiate(fireEffect, Vector3.zero, Quaternion.identity, modelParent.GetChild(exhaustParentIndex));
+            spawnedEffect.transform.localPosition = Vector3.zero;
+            spawnedEffect.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+        }
+            
+
+        Invoke(nameof(ExitGarage), 2.5f);
     }
 
     public void FixRim()
