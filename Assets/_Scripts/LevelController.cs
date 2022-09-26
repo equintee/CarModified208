@@ -39,7 +39,8 @@ public class LevelController : MonoBehaviour
         await playerTransform.DOMove(playerRacingPlatformPosition.position, playerController.movementSpeedZ).SetSpeedBased().AsyncWaitForCompletion();
         await StartCountingForFinalRace(3);
 
-        playerController.playerEvents += playerController.playerPlatformMovement;
+        ui.gasPedal.SetActive(true);
+        FindObjectOfType<EnemyCarController>().StartMovement();
     }
 
     private async Task StartCountingForFinalRace(int counter)
@@ -52,5 +53,21 @@ public class LevelController : MonoBehaviour
 
         if (counter != 0)
             await StartCountingForFinalRace(counter);
+    }
+
+    public void endGame(bool playerWin)
+    {
+        if (playerWin)
+            //winUI;
+            Debug.Log("win");
+        else
+            //LoseUI
+            Debug.Log("lose");
+
+        playerController.playerEvents -= playerController.playerMovementInRacingPlatform;
+        FindObjectOfType<EnemyCarController>().StopMovement();
+
+
+
     }
 }

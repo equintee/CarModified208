@@ -64,4 +64,8 @@ public class PlayerController : MonoBehaviour
         return isCarClean;
     }
     
+    public void playerMovementInRacingPlatform()
+    {
+        transform.Translate(0, 0, movementSpeedZ * Time.deltaTime);
+    }
 }

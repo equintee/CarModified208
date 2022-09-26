@@ -13,6 +13,7 @@ public class DoorController : MonoBehaviour, IPlatformInteractable
         interactablePosition = interactable.position;
         interactablePosition.y = 0.2f;
         interactableScript = interactable.GetComponent<IPlatformInteractable>();
+        
     }
     public async void Interact(GameObject player)
     {
@@ -20,6 +21,7 @@ public class DoorController : MonoBehaviour, IPlatformInteractable
         PlayerController playerController = player.GetComponent<PlayerController>();
         Transform playerTransform = player.transform;
 
+        FindObjectOfType<PlayerController>().movementSpeedZ *= 1.5f;
         playerController.playerEvents -= playerController.playerPlatformMovement;
         playerController.levelController.ui.repairBar.incrementValue(0.3f);
 

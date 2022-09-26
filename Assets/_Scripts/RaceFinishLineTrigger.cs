@@ -7,5 +7,10 @@ public class RaceFinishLineTrigger : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         LevelController levelController = FindObjectOfType<LevelController>();
+
+        if (other.CompareTag("Player"))
+            levelController.endGame(true);
+        else
+            levelController.endGame(false);
     }
 }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0ec0c3ca5df2954bb99aad5e6067d68, type: 3}
   m_Name: Mustang
   m_EditorClassIdentifier: 
-  movementSpeedZ: 15
+  movementSpeedZ: 3
   bodyWorkMaterialObjectIndex: 3
   bodyWorkMaterialIndex: 5
   spoilerObjectIndex: 0
