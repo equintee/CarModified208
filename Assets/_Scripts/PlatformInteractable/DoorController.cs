@@ -21,7 +21,7 @@ public class DoorController : MonoBehaviour, IPlatformInteractable
         Transform playerTransform = player.transform;
 
         playerController.playerEvents -= playerController.playerPlatformMovement;
-        playerController.levelController.repairBar.incrementValue(0.3f);
+        playerController.levelController.ui.repairBar.incrementValue(0.3f);
 
         interactableScript.BlendCamera();
 

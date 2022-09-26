@@ -7,8 +7,12 @@ public class Car : ScriptableObject
 {
     public float movementSpeedZ;
 
+    [HideInInspector] public Transform[] exhaustPositions;
+
+    public int[] bodyWorkMaterialIndex;
     public int[] rimMaterialIndex;
     public int[] exhaustMaterialIndex;
     public int[] lightsIndex;
+
 
 }

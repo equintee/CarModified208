@@ -35,14 +35,18 @@ public class CarWashing : MonoBehaviour, IPlatformInteractable
         
         for (int iteration = 0; iteration < iterationCount; iteration++)
         {
-            foreach(Material carMaterial in carModel.GetComponent<MeshRenderer>().materials)
+            Material[] carMaterials = carModel.GetComponent<MeshRenderer>().materials;
+            foreach(int bodyWorkMaterialIndex in FindObjectOfType<PlayerController>().car.bodyWorkMaterialIndex)
             {
+                Material carMaterial = carMaterials[bodyWorkMaterialIndex];
                 for (int width = 0; width < iterationCount; width++)
                     dirtMaskTexture.SetPixel(iteration, width, new Color(0, 0, 0));
                 
                 dirtMaskTexture.Apply();
                 carMaterial.SetTexture("_Mask", dirtMaskTexture);
             }
+
+            //carModel.GetComponent<MeshRenderer>().materials = carMaterials;
             await Task.Delay(System.TimeSpan.FromSeconds(delayBetweenIteration));
         }
     }
