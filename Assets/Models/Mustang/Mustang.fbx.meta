@@ -6,7 +6,47 @@ ModelImporter:
   - first:
       74: 1827226128182048838
     second: Take 001
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bodywork1
+    second: {fileID: 2100000, guid: c371c056a70ff994f8a70400986ba1d8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Rim1
+    second: {fileID: 2100000, guid: f4e4959fd3cd0794d9aa833c782eb86f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Rubber
+    second: {fileID: 2100000, guid: 55a8ecf65c647d5418fe48870dfec1a4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Window
+    second: {fileID: 2100000, guid: 9572c92e767f7f0438e16b8a1bcfcde7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: back_light1
+    second: {fileID: 2100000, guid: 49ca41779c1250748b8ac64a1d1260f1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: buffer
+    second: {fileID: 2100000, guid: 65616434060d6854bacef99f28d55738, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: front_light
+    second: {fileID: 2100000, guid: 49ca41779c1250748b8ac64a1d1260f1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: spot_light
+    second: {fileID: 2100000, guid: 59d7ad59560a02c4e95a6439e1ef24f2, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

@@ -11,14 +11,14 @@ public class CarPainter : MonoBehaviour, IPlatformInteractable
     {
         PlayerController playerController = player.GetComponent<PlayerController>();
         Transform playerTransform = player.transform;
+        Material bodyWorkMaterial = playerTransform.GetChild(0).GetChild(playerController.car.bodyWorkMaterialObjectIndex).GetComponent<MeshRenderer>().materials[playerController.car.bodyWorkMaterialIndex];
+
         playerTransform.DOMoveZ(transform.position.z + 3, playerController.movementSpeedZ).SetSpeedBased().OnComplete(() =>
         {
              playerController.playerEvents += playerController.playerPlatformMovement;
         });
 
-        Material[] carMaterials = player.transform.GetChild(0).GetComponent<MeshRenderer>().materials;
-        carMaterials[^1].SetTexture("_MainTexture", paint);
-        player.transform.GetChild(0).GetComponent<MeshRenderer>().materials = carMaterials;
+        bodyWorkMaterial.SetTexture("_MainTexture", paint);
 
     }
     public void BlendCamera()

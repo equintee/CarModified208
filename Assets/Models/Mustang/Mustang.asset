@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0ec0c3ca5df2954bb99aad5e6067d68, type: 3}
   m_Name: Mustang
   m_EditorClassIdentifier: 
-  movementSpeedZ: 2
+  movementSpeedZ: 3
+  bodyWorkMaterialObjectIndex: 3
+  bodyWorkMaterialIndex: 5
+  spoilerObjectIndex: 0
+  lightMaterialObjectIndex: 0
+  lightMaterialIndex: 
   exhaustPositions: []
-  bodyWorkMaterialIndex: 06000000
-  rimMaterialIndex: 05000000
-  exhaustMaterialIndex: 
-  lightsIndex: 020000000300000004000000

@@ -43,7 +43,7 @@ public class Garage : MonoBehaviour, IPlatformInteractable
         //Alev
     }
 
-    public void FixRim()
+    /*public void FixRim()
     {
         Material[] carMaterials = GetMaterials(player);
         Texture2D mask = new Texture2D(1, 1);
@@ -55,16 +55,16 @@ public class Garage : MonoBehaviour, IPlatformInteractable
             carMaterials[index].SetTexture("_Mask", mask);
 
         SetMaterials(player, carMaterials);
-    }
+    }*/
 
 
     public void FixHeadlight()
     {
-        Material[] carMaterials = GetMaterials(player);
+        Material[] carMaterials = GetMaterials(player.transform.GetChild(playerController.car.lightMaterialObjectIndex).gameObject);
         Texture2D mask = new Texture2D(1, 1);
         mask.SetPixel(0, 0, Color.black);
 
-        int[] lightsIndex = FindObjectOfType<PlayerController>().car.lightsIndex;
+        int[] lightsIndex = FindObjectOfType<PlayerController>().car.lightMaterialIndex;
 
         foreach (int index in lightsIndex)
             carMaterials[index].SetTexture("_Mask", mask);
@@ -76,9 +76,9 @@ public class Garage : MonoBehaviour, IPlatformInteractable
         return player.transform.GetChild(0).GetComponent<MeshRenderer>().materials;
     }
 
-    private void SetMaterials(GameObject player, Material[] carMaterials)
+    private void SetMaterials(GameObject lightsParent, Material[] carMaterials)
     {
-        player.transform.GetChild(0).GetComponent<MeshRenderer>().materials = carMaterials;
+        lightsParent.GetComponent<MeshRenderer>().materials = carMaterials;
         Invoke(nameof(ExitGarage), 2.5f);
     }
 

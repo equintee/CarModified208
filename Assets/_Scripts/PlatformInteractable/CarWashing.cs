@@ -27,26 +27,21 @@ public class CarWashing : MonoBehaviour, IPlatformInteractable
         int iterationCount = 10;
         float delayBetweenIteration = cleanTime / iterationCount;
 
+        PlayerController playerController = FindObjectOfType<PlayerController>();
+        Material bodyWorkMaterial = carModel.GetChild(playerController.car.bodyWorkMaterialObjectIndex).GetComponent<MeshRenderer>().materials[playerController.car.bodyWorkMaterialIndex];
+
         Texture2D dirtMaskTexture = new Texture2D(iterationCount, iterationCount);
-        
         for (int height = 0; height < iterationCount; height++)
             for (int width = 0; width < iterationCount; width++)
                 dirtMaskTexture.SetPixel(width, height, Color.green);
-        
-        for (int iteration = 0; iteration < iterationCount; iteration++)
-        {
-            Material[] carMaterials = carModel.GetComponent<MeshRenderer>().materials;
-            foreach(int bodyWorkMaterialIndex in FindObjectOfType<PlayerController>().car.bodyWorkMaterialIndex)
-            {
-                Material carMaterial = carMaterials[bodyWorkMaterialIndex];
-                for (int width = 0; width < iterationCount; width++)
-                    dirtMaskTexture.SetPixel(iteration, width, new Color(0, 0, 0));
-                
-                dirtMaskTexture.Apply();
-                carMaterial.SetTexture("_Mask", dirtMaskTexture);
-            }
 
-            //carModel.GetComponent<MeshRenderer>().materials = carMaterials;
+        for(int iteration = 0; iteration < iterationCount; iteration++)
+        {
+            for (int width = 0; width < iterationCount; width++)
+                dirtMaskTexture.SetPixel(iteration, width, new Color(0, 0, 0));
+
+            dirtMaskTexture.Apply();
+            bodyWorkMaterial.SetTexture("_Mask", dirtMaskTexture);
             await Task.Delay(System.TimeSpan.FromSeconds(delayBetweenIteration));
         }
     }
