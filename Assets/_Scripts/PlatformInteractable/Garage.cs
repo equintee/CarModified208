@@ -43,24 +43,32 @@ public class Garage : MonoBehaviour, IPlatformInteractable
         //Alev
     }
 
-    /*public void FixRim()
+    public void FixRim()
     {
-        Material[] carMaterials = GetMaterials(player);
+        Dictionary<GameObject, Material[]> partMaterialDictonary = new Dictionary<GameObject, Material[]>();
+        Transform modelParent = player.transform.GetChild(0);
+        PlayerController playerController = FindObjectOfType<PlayerController>();
+
+        foreach (int parentIndex in playerController.car.rimMaterialObjectsIndex)
+            partMaterialDictonary.Add(modelParent.GetChild(parentIndex).gameObject, modelParent.GetChild(parentIndex).GetComponent<MeshRenderer>().materials);
+
         Texture2D mask = new Texture2D(1, 1);
         mask.SetPixel(0, 0, Color.black);
+        foreach (var partMaterialEntry in partMaterialDictonary)
+        {
+            foreach (Material material in partMaterialEntry.Value)
+                material.SetTexture("_Mask", mask);
+            SetMaterials(partMaterialEntry.Key, partMaterialEntry.Value);
+        }
 
-        int[] rimMaterialsIndex = FindObjectOfType<PlayerController>().car.rimMaterialIndex;
-
-        foreach (int index in rimMaterialsIndex)
-            carMaterials[index].SetTexture("_Mask", mask);
-
-        SetMaterials(player, carMaterials);
-    }*/
+        Invoke(nameof(ExitGarage), 2.5f);
+    }
 
 
-    public void FixHeadlight()
+    public void FixLights()
     {
-        Material[] carMaterials = GetMaterials(player.transform.GetChild(playerController.car.lightMaterialObjectIndex).gameObject);
+        GameObject lightsParent = player.transform.GetChild(0).GetChild(playerController.car.lightMaterialObjectIndex).gameObject;
+        Material[] carMaterials = GetMaterials(lightsParent);
         Texture2D mask = new Texture2D(1, 1);
         mask.SetPixel(0, 0, Color.black);
 
@@ -69,17 +77,17 @@ public class Garage : MonoBehaviour, IPlatformInteractable
         foreach (int index in lightsIndex)
             carMaterials[index].SetTexture("_Mask", mask);
 
-        SetMaterials(player, carMaterials);
+        SetMaterials(lightsParent, carMaterials);
+        Invoke(nameof(ExitGarage), 2.5f);
     }
     private Material[] GetMaterials(GameObject player)
     {
-        return player.transform.GetChild(0).GetComponent<MeshRenderer>().materials;
+        return player.transform.GetComponent<MeshRenderer>().materials;
     }
 
-    private void SetMaterials(GameObject lightsParent, Material[] carMaterials)
+    private void SetMaterials(GameObject objectParent, Material[] carMaterials)
     {
-        lightsParent.GetComponent<MeshRenderer>().materials = carMaterials;
-        Invoke(nameof(ExitGarage), 2.5f);
+        objectParent.GetComponent<MeshRenderer>().materials = carMaterials;
     }
 
     private void ExitGarage()

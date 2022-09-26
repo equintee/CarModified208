@@ -12,8 +12,7 @@ public class Car : ScriptableObject
 
     public int spoilerObjectIndex;
 
-    /*public int[] rimMaterialObjects;
-    public int[] rimMaterialIndex;*/
+    public int[] rimMaterialObjectsIndex;
 
     public int lightMaterialObjectIndex;
     public int[] lightMaterialIndex;
