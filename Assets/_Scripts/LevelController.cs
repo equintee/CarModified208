@@ -31,6 +31,7 @@ public class LevelController : MonoBehaviour
         CinemachineStateDrivenCamera cinemachine = FindObjectOfType<CinemachineStateDrivenCamera>();
         Transform playerTransform = playerController.transform;
 
+        playerController.StopWheelsRotation();
         playerController.playerEvents -= playerController.playerPlatformMovement;
 
         cinemachine.m_DefaultBlend.m_Time = Vector3.Distance(playerRacingPlatformPosition.position, playerTransform.position) / playerController.movementSpeedZ;

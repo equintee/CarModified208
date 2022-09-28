@@ -24,14 +24,19 @@ public class Garage : MonoBehaviour, IPlatformInteractable
         cinemachine = FindObjectOfType<CinemachineStateDrivenCamera>();
     }
 
-    public void Interact(GameObject player)
+    public async void Interact(GameObject player)
     {
         this.player = player;
-        playerTransform.DOMove(transform.position, playerController.movementSpeedZ).SetSpeedBased().OnComplete(() =>
+
+        await playerTransform.DOMove(transform.position, playerController.movementSpeedZ).SetSpeedBased().OnComplete(() =>
         {
             animator.Play("garageFix");
             fixing.Invoke();
-        });
+        }).AsyncWaitForCompletion();
+
+        await playerTransform.DOMoveY(transform.position.y + 0.7f, 0.76666666666f).SetEase(Ease.InQuad).AsyncWaitForCompletion();
+
+        await playerTransform.DOMoveY(transform.position.y, 0.76666666666f).SetEase(Ease.InQuad).AsyncWaitForCompletion();
     }
     public void BlendCamera()
     {
@@ -109,6 +114,7 @@ public class Garage : MonoBehaviour, IPlatformInteractable
         playerTransform.DOMove(transform.position + new Vector3(0, 0, 2), playerController.movementSpeedZ).SetSpeedBased().OnComplete(() =>
         {
             playerController.playerEvents += playerController.playerPlatformMovement;
+            playerController.SpinWheels();
         });
     }
 }

@@ -1,4 +1,5 @@
 using Cinemachine;
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -28,6 +29,7 @@ public class PlayerController : MonoBehaviour
         movementSpeedZ = car.movementSpeedZ;
         movementSpeedX = levelController.sensivity;
         playerEvents += playerPlatformMovement;
+        SpinWheels();
     }
 
     // Update is called once per frame
@@ -49,6 +51,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void SpinWheels()
+    {
+        foreach(int wheelIndex in car.rimMaterialObjectsIndex)
+            transform.GetChild(0).GetChild(wheelIndex).DORotate(new Vector3(360,0,0), 0.5f, RotateMode.FastBeyond360).SetEase(Ease.Linear).SetLoops(-1);
+    }
+
+    public void StopWheelsRotation()
+    {
+        foreach (int wheelIndex in car.rimMaterialObjectsIndex)
+            DOTween.Kill(transform.GetChild(0).GetChild(wheelIndex));
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Interactable"))

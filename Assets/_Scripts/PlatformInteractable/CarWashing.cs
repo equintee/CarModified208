@@ -7,19 +7,32 @@ using System.Linq;
 
 public class CarWashing : MonoBehaviour, IPlatformInteractable
 {
+    private Animator animator;
 
-    public void Interact(GameObject player)
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
+
+    public async void Interact(GameObject player)
     {
         PlayerController playerController = player.GetComponent<PlayerController>();
         Transform playerTransform = player.transform;
+
+        animator.Play("CarWashingAnimation");
+
+        CleanCar(1f, playerTransform.GetChild(0));
+
+        await Task.Delay(System.TimeSpan.FromSeconds(1f));
 
         playerController.setIsClean(true);
 
         playerTransform.transform.DOMoveZ(transform.position.z + 1f, playerController.movementSpeedZ).SetSpeedBased().OnComplete( () => {
             playerController.playerEvents += playerController.playerPlatformMovement;
+            playerController.SpinWheels();
         });
 
-        CleanCar(1f, playerTransform.GetChild(0));
+        
     }
 
     private async void CleanCar(float cleanTime, Transform carModel)
