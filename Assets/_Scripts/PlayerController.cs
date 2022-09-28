@@ -28,8 +28,6 @@ public class PlayerController : MonoBehaviour
     {
         movementSpeedZ = car.movementSpeedZ;
         movementSpeedX = levelController.sensivity;
-        playerEvents += playerPlatformMovement;
-        SpinWheels();
     }
 
     // Update is called once per frame

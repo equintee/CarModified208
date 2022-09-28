@@ -24,7 +24,7 @@ public class DoorController : MonoBehaviour, IPlatformInteractable
         FindObjectOfType<PlayerController>().movementSpeedZ += playerController.car.movementSpeedZ * 0.5f;
         playerController.playerEvents -= playerController.playerPlatformMovement;
         playerController.StopWheelsRotation();
-        playerController.levelController.ui.repairBar.incrementValue(0.3f);
+        playerController.levelController.ui.repairBar.IncrementValue(0.3f, 0.15f);
 
         interactableScript.BlendCamera();
 
