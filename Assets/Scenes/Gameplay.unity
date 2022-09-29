@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17432675, g: 0.47438103, b: 0.59942555, a: 1}
+  m_IndirectSpecularColor: {r: 0.17432682, g: 0.47438022, b: 0.5994223, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -922,7 +922,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 197039454}
-  m_LocalRotation: {x: 0.1337192, y: 0.69434804, z: -0.13371922, w: 0.69434804}
+  m_LocalRotation: {x: 0.1337192, y: 0.694348, z: -0.13371919, w: 0.6943481}
   m_LocalPosition: {x: -5.1549253, y: 4.3935328, z: -60.921074}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1289,7 +1289,6 @@ GameObject:
   m_Component:
   - component: {fileID: 320736345}
   - component: {fileID: 320736347}
-  - component: {fileID: 320736346}
   m_Layer: 5
   m_Name: LoseUI
   m_TagString: Untagged
@@ -1318,36 +1317,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -300}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &320736346
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 320736344}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 0
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!222 &320736347
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4401,6 +4370,8 @@ MonoBehaviour:
     winUI: {fileID: 97365868}
     loseUI: {fileID: 320736344}
   gasPerCollectable: 0.4
+  gasDecreaseSpeed: 0.059
+  barIncreaseSpeed: 0.2
   playerRacingPlatformPosition: {fileID: 554353028}
 --- !u!1 &1653190291 stripped
 GameObject:
@@ -4569,8 +4540,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.5, z: 0.5}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.8399334, y: 0.5, z: 1.0637512}
+  m_Center: {x: 0.029340282, y: 0, z: 0.2818756}
 --- !u!114 &1835647151
 MonoBehaviour:
   m_ObjectHideFlags: 0

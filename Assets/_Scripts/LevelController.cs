@@ -23,6 +23,8 @@ public class LevelController : MonoBehaviour
     public float sensivity;
     public UI ui;
     public float gasPerCollectable;
+    [Range(0, 1)] public float gasDecreaseSpeed;
+    [Range(0, 1)] public float barIncreaseSpeed;
     public Transform playerRacingPlatformPosition;
 
     private PlayerController playerController;
@@ -57,6 +59,7 @@ public class LevelController : MonoBehaviour
         await playerTransform.DOMove(playerRacingPlatformPosition.position, playerController.movementSpeedZ).SetSpeedBased().AsyncWaitForCompletion();
         await StartCountingForFinalRace(3);
 
+        playerController.SpinWheels();
         ui.gasPedal.SetActive(true);
         FindObjectOfType<EnemyCarController>().StartMovement();
     }

@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     private int platformLayerMask;
     private bool isCarClean = false;
     private float movementSpeedX;
+    private BoxCollider playerCollider;
 
     public event Action playerEvents;
     private void Awake()
@@ -23,6 +24,7 @@ public class PlayerController : MonoBehaviour
         cinemachine = FindObjectOfType<CinemachineStateDrivenCamera>();
         levelController = FindObjectOfType<LevelController>();
         platformLayerMask = LayerMask.GetMask("Platform");
+        playerCollider = GetComponent<BoxCollider>();
     }
     void Start()
     {
@@ -44,11 +46,26 @@ public class PlayerController : MonoBehaviour
         {
             Touch touch = Input.GetTouch(0);
             Vector3 movement = new Vector3(movementSpeedX * touch.deltaPosition.x, 0, 0);
-            if (Physics.Raycast(movement + transform.position, Vector3.down, platformLayerMask))
+            if (/*Physics.Raycast(movement + transform.position, Vector3.down, platformLayerMask)*/ IsGrounded(movement))
                 transform.Translate(movement);
         }
     }
 
+    public bool IsGrounded(Vector3 movement)
+    {
+        bool isGrounded = false;
+
+        Vector3 leftEdge = transform.position;
+        leftEdge.x += playerCollider.size.x;
+
+        Vector3 rightEdge = transform.position;
+        rightEdge.x -= playerCollider.size.x;
+
+        if (Physics.Raycast(leftEdge + movement, Vector3.down, platformLayerMask) && Physics.Raycast(rightEdge + movement, Vector3.down, platformLayerMask))
+            isGrounded = true;
+
+        return isGrounded;
+    }
     public void SpinWheels()
     {
         foreach(int wheelIndex in car.rimMaterialObjectsIndex)

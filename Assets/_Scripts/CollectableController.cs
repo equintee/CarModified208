@@ -16,8 +16,10 @@ public class CollectableController : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            Destroy(gameObject);
             await fuelBar.IncrementValue(gasPerCollectable, 0.2f);
             fuelBar.DecrementFuelBar();
+            
         }
             
     }
